@@ -1,0 +1,98 @@
+/* Base styles */
+body {
+    background-color: #eef2f3;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Center container */
+.container {
+    margin: 50px auto;
+    padding: 40px;
+    max-width: 600px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* Heading */
+h1 {
+    color: #005f73;
+    font-size: 44px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Paragraph */
+p {
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Styled button */
+button {
+    background-color: #008CBA;
+    color: white;
+    font-size: 18px;
+    padding: 12px 28px;
+    border-radius: 50px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #005f73;
+    transform: scale(1.05);
+}
+
+/* File input */
+input[type="file"] {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="file"]:hover {
+    border-color: #008CBA;
+}
+
+/* Flash messages */
+.flash-messages {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #28a745;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #c3e6cb;
+}
+
+/* Responsive text */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    input[type="file"] {
+        font-size: 16px;
+    }
+}

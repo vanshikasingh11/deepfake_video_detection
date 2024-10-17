@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Video Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Deepfake Video Detection</h1>
+        <p>Detect if a video is deepfake. Just upload your video, and we will take care of the rest!</p>
+
+        <!-- Form to upload a video -->
+        <form method="POST" enctype="multipart/form-data" aria-label="Upload Video Form">
+            <label for="file">Upload a video file (mp4, avi, mov):</label>
+            <input type="file" id="file" name="file" accept="video/*" required>
+            <button type="submit">Run Deepfake Detection</button>
+        </form>
+
+        <!-- Button to download weights -->
+        <form action="{{ url_for('download_weights') }}" method="get" aria-label="Download Weights Form">
+            <button type="submit">Download Pretrained Weights</button>
+        </form>
+
+        <!-- Flash messages for results or errors -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
