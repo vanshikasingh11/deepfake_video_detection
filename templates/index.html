@@ -3,36 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deepfake Video Detection</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Deepfake Detection Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+        }
+        .btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <h1>🎬 Deepfake Video Detection</h1>
-        <p>Detect if a video is deepfake. Just upload your video, and we will take care of the rest!</p>
+<body class="gradient-bg min-h-screen flex items-center justify-center">
+    <div class="container mx-auto px-4 py-16 max-w-4xl text-white">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-bold mb-4 tracking-tight">VeriMedia</h1>
+            <p class="text-lg opacity-90">
+                Uncover AI-manipulated videos and images with advanced detection tools
+            </p>
+        </div>
 
-        <!-- Form to upload a video -->
-        <form method="POST" enctype="multipart/form-data" aria-label="Upload Video Form">
-            <label for="file">Upload a video file (mp4, avi, mov):</label>
-            <input type="file" id="file" name="file" accept="video/*" required>
-            <button type="submit">Run Deepfake Detection</button>
-        </form>
+        <!-- Overview Section -->
+        <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl mb-12 text-center">
+            <h2 class="text-3xl font-semibold mb-4">Welcome to the Deepfake Detection Tool</h2>
+            <p class="text-blue-100 text-md">
+                Our tool leverages cutting-edge machine learning to analyze and verify video and image content for authenticity.
+                Choose a detection method to begin analyzing for deepfakes.
+            </p>
+        </div>
 
-        <!-- Button to download weights -->
-        <form action="{{ url_for('download_weights') }}" method="get" aria-label="Download Weights Form">
-            <button type="submit">Download Pretrained Weights</button>
-        </form>
+        <!-- Detection Options -->
+        <div class="grid gap-8 grid-cols-1 sm:grid-cols-2">
+            <!-- Video Detection Card -->
+            <a href="video.html">
+                <div class="card rounded-3xl p-8 text-center cursor-pointer hover:bg-opacity-15">
+                    <button class="btn px-8 py-4 rounded-xl text-white font-semibold text-lg w-full">
+                        Start Video Detection
+                    </button>
+                </div>
+            </a>
+            <!-- Image Detection Card -->
+            <div class="card rounded-3xl p-8 text-center cursor-pointer hover:bg-opacity-15">  
+                <a href="image.html">
+                    <button class="btn px-8 py-4 rounded-xl text-white font-semibold text-lg w-full">
+                        Start Image Detection
+                    </button>
+                </a>
+            </div>
+        </div>
 
-        <!-- Flash messages for results or errors -->
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class="flash-messages">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+        <!-- Footer -->
+        <div class="text-center mt-12 text-blue-200 text-sm">
+            <p>Powered by advanced machine learning algorithms for detecting AI-generated content</p>
+        </div>
     </div>
 </body>
 </html>

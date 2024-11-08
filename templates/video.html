@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detectionn Tool</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='video.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='video.css') }}"> -->
+    <style>
+        .gradient-bg {
+    background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%);
+}
+.upload-area {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+.upload-area:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+}
+.btn-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    transition: all 0.3s ease;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+    </style> 
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-white mb-4 tracking-tight">
+                🎬 Deepfake Video Detection
+            </h1>
+            <p class="text-xl text-blue-100 opacity-90">
+                Advanced AI-powered technology to detect manipulated videos
+            </p>
+        </div>
+
+        <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
+         
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div class="upload-area rounded-2xl p-8 text-center cursor-pointer">
+                    <label for="file" class="block cursor-pointer">
+                        <div class="space-y-4">
+                            <svg class="w-12 h-12 mx-auto text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            <div class="text-xl font-medium text-white">
+                                Drop your video here or click to upload
+                            </div>
+                            <p class="text-blue-200 text-sm">
+                                Supported formats: MP4, AVI, MOV
+                            </p>
+                        </div>
+                    </label>
+                    <input type="file" id="file" name="file" accept="video/*" required
+                           class="hidden">
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                    <button type="submit" 
+                            class="btn-primary px-8 py-4 rounded-xl text-white font-semibold text-lg w-full sm:w-auto">
+                        Analyze Video
+                    </button>
+                    <button type="button" formaction="{{ url_for('download_weights') }}"
+                            class="btn-secondary px-8 py-4 rounded-xl text-white font-semibold text-lg w-full sm:w-auto">
+                        Download Weights
+                    </button>
+                </div>
+            </form>
+
+            <!-- Results Section -->
+            <!-- {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="mt-8 space-y-4">
+                        {% for message in messages %}
+                            <div class="bg-blue-900 bg-opacity-50 border border-blue-200 border-opacity-20 rounded-xl p-4 text-blue-100">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %} -->
+        </div>
+        <div class="text-center mt-8 text-blue-200 text-sm">
+            <p>Powered by advanced machine learning algorithms</p>
+        </div>
+    </div>
+
+    <script>
+        // Handle drag and drop functionality
+        const uploadArea = document.querySelector('.upload-area');
+        const fileInput = document.querySelector('#file');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            uploadArea.classList.add('bg-opacity-10');
+        }
+
+        function unhighlight(e) {
+            uploadArea.classList.remove('bg-opacity-10');
+        }
+
+        uploadArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+        }
+    </script>
+</body>
+</html>
